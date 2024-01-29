@@ -1,17 +1,71 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Card";
 }
-
 <h1>Card</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4" id="rrc">
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 @section scripts
 {
-        @* https://getbootstrap.com/docs/5.3/components/card/#grid-cards *@
+
+    @* https://getbootstrap.com/docs/5.3/components/card/#grid-cards *@
     <script src="~/js/travel.js"></script>
     <script>
-        console.log(spots.CommonFormat.Section);
+        //console.log(spots.CommonFormat.Section);
+        //console.log(spots.CommonFormat.Section[0]);
+
+        const rrc1 = document.querySelector('#rrc');
+        const sss = spots.CommonFormat.Section.map((e) => {
+            if (e.file.img.length > 0)
+                return `<div class="col">
+                            <div class="card h-100">
+                                <img src="${e.file.img[0].text ? e.file.img[0].text: ""}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">${e.stitle}</h5>
+                                    <p class="card-text">${e.idpt}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-body-secondary">${e.xpostDate}</small>
+                                </div>
+                            </div>
+                        </div>`;
+        })
+        rrc1.innerHTML = sss.join("");
+
+
+        // const theuuu = document.querySelector('#uuu');
+        // const liEmps = emps.map(
+        //     e => {
+        //         return `<li>${e.name},${e.workYears},${e.salary}</li>`
+        //     });
+
+        // theuuu.innerHTML = liEmps.join("");
+
     </script>
-
-
 }
