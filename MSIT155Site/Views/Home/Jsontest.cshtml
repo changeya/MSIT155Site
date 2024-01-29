@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "Jsontest";
+}
+
+<h1>Jsontest</h1>
+<ul id="uuu">
+    <li>000</li>
+    <li>111</li>
+    <li>222</li>
+</ul>
+
+
+@section Scripts {
+
+    <script>
+        const emps = [{ "name": "Tom", "workYears": 3, "salary": 35000 },
+        { "name": "Jack", "workYears": 5, "salary": 40000 },
+        { "name": "Mary", "workYears": 7, "salary": 45000 }];
+        const emp = {
+            "employees": [
+                { "name": "Tom", "workYears": 3, "salary": 35000 },
+                { "name": "Jack", "workYears": 5, "salary": 40000 },
+                { "name": "Mary", "workYears": 7, "salary": 45000 }
+            ]
+        };
+        console.log(emps);
+        console.log(emp);
+
+        console.log("emps取得Jack__" + emps[1].name);
+        console.log("emp取得Jack__" + emp.employees[1].name);
+
+        for (let i = 0; i < emps.length; i++) {
+            console.log(emps[i].name);
+            console.log(emps[i].workYears);
+            console.log(emps[i].salary);
+        }
+
+
+        //抓取元素
+        const theuuu = document.querySelector('#uuu');
+        const liEmps = emps.map(
+            e => {
+                return `<li>${e.name},${e.workYears},${e.salary}</li>`
+            });
+
+        theuuu.innerHTML = liEmps.join("");
+
+
+    </script>
+
+
+
+}
