@@ -55,9 +55,12 @@ namespace MSIT155Site.Controllers
      
             return View();
         }
-        public IActionResult CheckAccount()
+        public IActionResult CheckAccount(UserDTO user)
         {
-            return View();
+
+            bool isDuplicate = _context.Members.Any(p => p.Name == user.Name);
+
+            return Content($"{isDuplicate}", "text/plain", Encoding.UTF8);
         }
         
         public IActionResult Register(UserDTO user)

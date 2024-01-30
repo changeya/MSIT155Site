@@ -10,6 +10,7 @@
             <div class="mb-3">
                 <label for="userName" class="form-label">姓名：</label>
                 <input type="text" class="form-control" id="userName" name="Name">
+                <div class="alert alert-info" id="divCheckName"></div>
             </div>
             <div class="mb-3">
                 <label for="UserEmail" class="form-label">電子郵件：</label>
@@ -35,6 +36,7 @@
         const txtAge = document.querySelector('#userAge');
         const txtMail = document.querySelector('#UserEmail');
         const theDiv = document.querySelector('#div1');
+        const theDivCheckName = document.querySelector('#divCheckName');
 
         btn.addEventListener('click', async (event) => {
             event.preventDefault(); //防止預設行為的發生
@@ -46,11 +48,36 @@
             const data = await response.text()
             theDiv.innerHTML = data;
 
+        })
+
+        txtName.addEventListener('blur', async (event) => {
+            event.preventDefault(); //防止預設行為的發生
 
 
+            if (txtName.value != "") {
+                let checkUrl = '@Url.Content("~/api/CheckAccount")';
+                checkUrl = `${checkUrl}?Name=${txtName.value}&Age=${txtAge.value}&Email=${txtMail.value}`;
+                const response = await fetch(checkUrl)
+                const data = await response.text()
+                console.log(data);
+                theDivCheckName.innerHTML = txtName.value + '的姓名 ' + (data == "True" ? "重複!!!!" : "沒重複");
+            }
 
 
         })
+
+        // let checkUrl = '@Url.Content("~/api/CheckAccount")';
+        // checkUrl = `${checkUrl}?Name=${txtName.value}&Age=${txtAge.value}&Email=${txtMail.value}`;
+        // fetch(checkUrl)
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error(`有錯誤 狀態碼:${response.status}`);
+        //         }
+        //         return response.text();
+        //     })
+        //     .then(e => theDivCheckName.innerHTML = `<h3>${e}</h3>`)
+        //     .catch(error => divInfo.innerHTML = error.message);
+
 
 
 
