@@ -41,7 +41,6 @@
         btn.addEventListener('click', async (event) => {
             event.preventDefault(); //防止預設行為的發生
 
-
             let url = '@Url.Content("~/api/register")';
             url = `${url}?Name=${txtName.value}&Age=${txtAge.value}&Email=${txtMail.value}`;
             const response = await fetch(url)
@@ -53,32 +52,17 @@
         txtName.addEventListener('blur', async (event) => {
             event.preventDefault(); //防止預設行為的發生
 
-
             if (txtName.value != "") {
                 let checkUrl = '@Url.Content("~/api/CheckAccount")';
                 checkUrl = `${checkUrl}?Name=${txtName.value}&Age=${txtAge.value}&Email=${txtMail.value}`;
                 const response = await fetch(checkUrl)
                 const data = await response.text()
                 console.log(data);
-                theDivCheckName.innerHTML = txtName.value + '的姓名 ' + (data == "True" ? "重複!!!!" : "沒重複");
+                theDivCheckName.innerHTML = txtName.value + '  ' + (data == 'True' ? '重複!!!!!!!!!' : '可使用');
             }
 
 
         })
-
-        // let checkUrl = '@Url.Content("~/api/CheckAccount")';
-        // checkUrl = `${checkUrl}?Name=${txtName.value}&Age=${txtAge.value}&Email=${txtMail.value}`;
-        // fetch(checkUrl)
-        //     .then(response => {
-        //         if (!response.ok) {
-        //             throw new Error(`有錯誤 狀態碼:${response.status}`);
-        //         }
-        //         return response.text();
-        //     })
-        //     .then(e => theDivCheckName.innerHTML = `<h3>${e}</h3>`)
-        //     .catch(error => divInfo.innerHTML = error.message);
-
-
 
 
             // //雖然在Home區，但是去取得api區的register

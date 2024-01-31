@@ -30,7 +30,26 @@ namespace MSIT155Site.Controllers
             return Json(cities);
         }
 
+        public IActionResult Districts(string city)
+        {
+            var districts = _context.Addresses.Where(a => a.City == city).Select(c => c.SiteId).Distinct();
 
+            return Json(districts);
+        }
+
+        public IActionResult Roads(string siteId)
+        {
+            var roads = _context.Addresses.Where(a => a.SiteId == siteId).Select(c => c.Road).Distinct();
+
+            return Json(roads);
+        }
+
+
+        public IActionResult Address()
+        {
+            return View();
+        }
+        
         public IActionResult Card()
         {
             return View();
@@ -50,9 +69,14 @@ namespace MSIT155Site.Controllers
             return NotFound();
         }
 
-        public IActionResult First()
+        public IActionResult Show()
         {
-     
+            return View();
+        }
+
+
+        public IActionResult First()
+        {     
             return View();
         }
         public IActionResult CheckAccount(UserDTO user)

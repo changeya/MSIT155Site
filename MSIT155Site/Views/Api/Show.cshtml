@@ -1,0 +1,41 @@
+﻿View
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h1>Show</h1>
+<img src="~/images/empty.jpg" id="img1" class="img-fluid img-thumbnail w-100" />
+
+@section Scripts {
+    <script>
+
+        (async () => {
+            const response = await fetch('@Url.Content("~/api/avatar")')
+            if (!response.ok) {
+                console.log(`有錯誤：${response.status}`)
+                return
+            }
+
+            const datas = await response.blob()
+            img1.src = URL.createObjectURL(datas)
+        })();
+    </script>
+
+@*API
+ public IActionResult Avatar(int id = 1)
+ {
+     Members? member = _context.Members.Find(id);
+     if (member!=null)
+     {
+         byte[] img = member.FileData;
+         if (img != null)
+         {
+             return File(img, "image/jpeg");
+         }
+     }
+     return NotFound();
+ } *@
+}
+
+
+
