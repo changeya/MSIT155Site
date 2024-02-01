@@ -20,7 +20,7 @@
         const rrc1 = document.querySelector('#rrc');
         const sss = spots.CommonFormat.Section.map((e) => {
 
-            let xbody = (e.xbody <= 100) ? e.xbody : e.xbody.substr(0, 100)+'...';
+            const xbody = (e.xbody <= 100) ? e.xbody : e.xbody.substr(0, 100) + '...';
             
             if (e.file.img.length > 0)
                 return `<div class="col">

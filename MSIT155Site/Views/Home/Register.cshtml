@@ -20,6 +20,10 @@
                 <label for="userAge" class="form-label">年紀：</label>
                 <input type="number" class="form-control" id="userAge" name="Age">
             </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" name="Avatar">
+                <label class="custom-file-label" for="customFile">選擇檔案</label>
+            </div>
 
             <button id="button1" type="submit" class="btn btn-primary">送出</button>
         </form>
@@ -32,22 +36,47 @@
 @section Scripts {
     <script>
         const btn = document.querySelector('#button1');
-        const txtName = document.querySelector('#userName');
-        const txtAge = document.querySelector('#userAge');
-        const txtMail = document.querySelector('#UserEmail');
+        // const txtName = document.querySelector('#userName');
+        // const txtAge = document.querySelector('#userAge');
+        // const txtMail = document.querySelector('#UserEmail');
         const theDiv = document.querySelector('#div1');
         const theDivCheckName = document.querySelector('#divCheckName');
 
+        // btn.addEventListener('click', async (event) => {
+        //     event.preventDefault(); //防止預設行為的發生
+
+        //     let url = '@Url.Content("~/api/register")';
+        //     url = `${url}?Name=${txtName.value}&Age=${txtAge.value}&Email=${txtMail.value}`;
+        //     const response = await fetch(url)
+        //     const data = await response.text()
+        //     theDiv.innerHTML = data;
+
+        // })
+
+
+
+        //改寫成FormData
         btn.addEventListener('click', async (event) => {
             event.preventDefault(); //防止預設行為的發生
+            
+            const formData = new FormData(document.querySelector('#userForm'));
+            // for (const pair of formData.entries()) {
+            //     console.log(pair[0]);
+            //     console.log(pair[1]);
+            // }
 
-            let url = '@Url.Content("~/api/register")';
-            url = `${url}?Name=${txtName.value}&Age=${txtAge.value}&Email=${txtMail.value}`;
-            const response = await fetch(url)
+            const url = '@Url.Content("~/api/register")';
+            const response = await fetch(url, {
+                method: 'POST',
+                body: formData       
+            })
             const data = await response.text()
             theDiv.innerHTML = data;
 
         })
+
+
+
 
         txtName.addEventListener('blur', async (event) => {
             event.preventDefault(); //防止預設行為的發生
@@ -60,9 +89,12 @@
                 console.log(data);
                 theDivCheckName.innerHTML = txtName.value + '  ' + (data == 'True' ? '重複!!!!!!!!!' : '可使用');
             }
-
-
         })
+
+
+
+
+
 
 
             // //雖然在Home區，但是去取得api區的register
